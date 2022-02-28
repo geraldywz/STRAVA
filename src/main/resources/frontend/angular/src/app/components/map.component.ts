@@ -1,3 +1,4 @@
+import { MapService } from './../service/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -18,39 +19,10 @@ export class MapComponent implements OnInit {
 
   markerOptions: google.maps.MarkerOptions = { draggable: false };
 
-  latSG: number = 1.3521; // lat coords for SG
-  lngSG: number = 103.8198; // lng coords for SG
-  latVar: number = 0.15;
-  lngVar: number = 0.25;
+  route: google.maps.LatLngLiteral[] = this.mapSvc.getRoute();
+  options: google.maps.MapOptions = this.mapSvc.getMapOptions();
 
-  SINGAPORE_BOUNDS = {
-    north: this.latSG + this.latVar,
-    south: this.latSG - this.latVar,
-    east: this.lngSG + this.lngVar,
-    west: this.lngSG - this.lngVar,
-  };
-
-  options: google.maps.MapOptions = {
-    center: { lat: this.latSG, lng: this.lngSG },
-    zoom: 12,
-    minZoom: 12,
-    zoomControl: true,
-    restriction: {
-      latLngBounds: this.SINGAPORE_BOUNDS,
-      strictBounds: false,
-    },
-  };
-
-  route: google.maps.LatLngLiteral[] = [
-    // This is a sample polyline depiciting what directions would look like when they are rendered on the map.
-    { lat: this.latSG + 0.0125, lng: this.lngSG + 0.0125 },
-    { lat: this.latSG - 0.0125, lng: this.lngSG + 0.0125 },
-    { lat: this.latSG - 0.0125, lng: this.lngSG - 0.0125 },
-    { lat: this.latSG + 0.0125, lng: this.lngSG - 0.0125 },
-    { lat: this.latSG + 0.0125, lng: this.lngSG + 0.0125 },
-  ];
-
-  constructor(httpClient: HttpClient) {
+  constructor(private mapSvc: MapService, private httpClient: HttpClient) {
     this.gMapsLoaded = httpClient
       .jsonp(
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyA9oFEhlrOuOk2CGdHG_9yxHuEjPWd_-0M',
