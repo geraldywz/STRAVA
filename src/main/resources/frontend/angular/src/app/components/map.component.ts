@@ -14,24 +14,24 @@ export class MapComponent implements OnInit {
   gMapsLoaded: Observable<boolean>;
 
   display!: google.maps.LatLngLiteral;
+  route!: google.maps.LatLngLiteral[];
+  options!: google.maps.MapOptions;
 
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
 
   markerOptions: google.maps.MarkerOptions = { draggable: false };
 
-  route: google.maps.LatLngLiteral[] = this.mapSvc.getRoute();
-  options: google.maps.MapOptions = this.mapSvc.getMapOptions();
-
-  constructor(private mapSvc: MapService, private httpClient: HttpClient) {
-    this.gMapsLoaded = httpClient
-      .jsonp(this.mapSvc.getURL_GoogleMap(), 'callback')
-      .pipe(
-        map(() => true),
-        catchError(() => of(false))
-      );
+  constructor(private mapSvc: MapService, private http: HttpClient) {
+    this.gMapsLoaded = http.jsonp(this.mapSvc.getAPI_GMap(), 'callback').pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route = this.mapSvc.getRoute();
+    this.options = this.mapSvc.getMapOptions();
+  }
 
   move(event: google.maps.MapMouseEvent) {
     this.display = event.latLng!.toJSON(); // Use of non-null assertion operator '!' to suppress the strict null check.

@@ -1,33 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Constants } from '../config/constants';
 
-const URL_API_GOOG_MAPS = 'https://maps.googleapis.com/maps/api/js?key=';
-const URL_API_ROUTE = '/api/route';
-
-const LAT_SG: number = 1.3521; // lat coords for SG
-const LNG_SG: number = 103.8198; // lng coords for SG
-const LAT_INC: number = 0.15;
-const LNG_INC: number = 0.25;
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MapService {
-  constructor() {}
+  constructor(private constants: Constants) {}
 
-  private getApi_GoogleMap(): string {
-    return 'AIzaSyA9oFEhlrOuOk2CGdHG_9yxHuEjPWd_-0M';
-  }
-
-  getURL_GoogleMap(): string {
-    return URL_API_GOOG_MAPS.concat(this.getApi_GoogleMap());
+  getAPI_GMap(): string {
+    return this.constants.API_GMAP_ENDPOINT.concat(this.constants.KEY_GMAP);
   }
 
   private getBoundaries(): google.maps.LatLngBoundsLiteral {
     return {
-      north: LAT_SG + LAT_INC,
-      south: LAT_SG - LAT_INC,
-      east: LNG_SG + LNG_INC,
-      west: LNG_SG - LNG_INC,
+      north: this.constants.LAT_SG + this.constants.LAT_INC,
+      south: this.constants.LAT_SG - this.constants.LAT_INC,
+      east: this.constants.LNG_SG + this.constants.LNG_INC,
+      west: this.constants.LNG_SG - this.constants.LNG_INC,
     };
   }
 
@@ -46,17 +33,32 @@ export class MapService {
 
   getRoute(): google.maps.LatLngLiteral[] {
     // This is a placeholder depiciting what directions would look like when they are rendered on the map.
-    const square: google.maps.LatLngLiteral[] = [
-      { lat: LAT_SG + 0.0125, lng: LNG_SG + 0.0125 },
-      { lat: LAT_SG - 0.0125, lng: LNG_SG + 0.0125 },
-      { lat: LAT_SG - 0.0125, lng: LNG_SG - 0.0125 },
-      { lat: LAT_SG + 0.0125, lng: LNG_SG - 0.0125 },
-      { lat: LAT_SG + 0.0125, lng: LNG_SG + 0.0125 },
+    let square: google.maps.LatLngLiteral[] = [
+      {
+        lat: this.constants.LAT_SG + 0.0125,
+        lng: this.constants.LNG_SG + 0.0125,
+      },
+      {
+        lat: this.constants.LAT_SG - 0.0125,
+        lng: this.constants.LNG_SG + 0.0125,
+      },
+      {
+        lat: this.constants.LAT_SG - 0.0125,
+        lng: this.constants.LNG_SG - 0.0125,
+      },
+      {
+        lat: this.constants.LAT_SG + 0.0125,
+        lng: this.constants.LNG_SG - 0.0125,
+      },
+      {
+        lat: this.constants.LAT_SG + 0.0125,
+        lng: this.constants.LNG_SG + 0.0125,
+      },
     ];
     return square;
   }
 
   private getSingaporeCoords(): google.maps.LatLngLiteral {
-    return { lat: LAT_SG, lng: LNG_SG };
+    return { lat: this.constants.LAT_SG, lng: this.constants.LNG_SG };
   }
 }

@@ -1,3 +1,5 @@
+import { Constants } from './config/constants';
+import { MapService } from './service/map.service';
 import { NgModule } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +18,7 @@ import { MapComponent } from './components/map.component';
     HttpClientModule,
     HttpClientJsonpModule,
   ],
-  providers: [],
+  providers: [MapService, Constants],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

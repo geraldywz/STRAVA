@@ -7,6 +7,9 @@ target/
 # Compiled output
 src/main/resources/static
 
+# Angular
+src/main/resources/frontend/angular/src/app/config/constants.ts
+
 ### STS ###
 .apt_generated
 .classpath
