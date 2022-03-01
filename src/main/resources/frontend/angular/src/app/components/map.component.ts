@@ -1,4 +1,4 @@
-import { MapService } from './../service/map.service';
+import { MapService } from '../service/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -24,10 +24,7 @@ export class MapComponent implements OnInit {
 
   constructor(private mapSvc: MapService, private httpClient: HttpClient) {
     this.gMapsLoaded = httpClient
-      .jsonp(
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyA9oFEhlrOuOk2CGdHG_9yxHuEjPWd_-0M',
-        'callback'
-      )
+      .jsonp(this.mapSvc.getURL_GoogleMap(), 'callback')
       .pipe(
         map(() => true),
         catchError(() => of(false))
