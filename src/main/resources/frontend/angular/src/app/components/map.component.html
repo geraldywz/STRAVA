@@ -12,9 +12,9 @@
       [position]="markerPosition"
       [options]="markerOptions"
     ></map-marker>
-    <map-polyline [path]="route"></map-polyline>
   </google-map>
   <div>Latitude: {{ display?.lat }}</div>
   <div>Longitude: {{ display?.lng }}</div>
   <div>Zoom: {{ map?.getZoom() }}</div>
+  <div>Markers: {{ route?.length }}</div>
 </div>

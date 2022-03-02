@@ -7,8 +7,9 @@ target/
 # Compiled output
 src/main/resources/static
 
-# Angular
+# Sensitive
 src/main/resources/frontend/angular/src/app/config/constants.ts
+src/main/java/tfip/strava/util/Constants.java
 
 ### STS ###
 .apt_generated

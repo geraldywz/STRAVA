@@ -14,13 +14,13 @@ import static tfip.strava.util.Constants.*;
 import tfip.strava.model.Key;
 
 @RestController
-@RequestMapping(path = API_MAP_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
-public class MapRestController {
-    private static final Logger logger = LoggerFactory.getLogger(MapRestController.class);
+@RequestMapping(path = API_ROUTE_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RouteRestController {
+    private static final Logger logger = LoggerFactory.getLogger(RouteRestController.class);
 
-    @GetMapping(value = "/key")
-    public ResponseEntity<String> getAPI_Google_Map() {
-        logger.info("GMAPS API KEY >>>> HIT");
+    @GetMapping()
+    public ResponseEntity<String> getDirections() {
+        
         return ResponseEntity
                 .ok()
                 .body(
