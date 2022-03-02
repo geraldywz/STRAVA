@@ -39,5 +39,6 @@ export class MapComponent implements OnInit {
 
   addMarker(event: google.maps.MapMouseEvent) {
     this.route.push(event.latLng!.toJSON());
+
   }
 }
