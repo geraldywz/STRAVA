@@ -1,4 +1,4 @@
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapDirectionsService } from '@angular/google-maps';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { RouteService } from './../service/route.service';
@@ -21,11 +21,13 @@ export class RouteComponent implements OnInit {
   display!: google.maps.LatLngLiteral;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   route!: google.maps.LatLngLiteral[];
+  readonly directionsResults$!: Observable<google.maps.DirectionsResult|undefined>;
 
   constructor(
     private mapSvc: MapService,
     private routeSvc: RouteService,
-    http: HttpClient
+    http: HttpClient,
+    mapDirectionsService: MapDirectionsService
   ) {
     this.routeSvc.getKey().then((apiKey) => {
       this.key = apiKey.key;
