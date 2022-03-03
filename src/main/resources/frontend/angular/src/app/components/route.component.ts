@@ -1,10 +1,8 @@
-import { GoogleMap, MapDirectionsService } from '@angular/google-maps';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { GoogleMap } from '@angular/google-maps';
+import { Observable } from 'rxjs';
 import { RouteService } from './../service/route.service';
 import { MapService } from './../service/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-route',
@@ -13,31 +11,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RouteComponent implements OnInit {
   //Variables for loading the map
-  apiLoaded!: Observable<boolean>;
   options!: google.maps.MapOptions;
-  key!: string;
 
   //Variables for handling the map
   display!: google.maps.LatLngLiteral;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   route!: google.maps.LatLngLiteral[];
-  readonly directionsResults$!: Observable<google.maps.DirectionsResult|undefined>;
+  directionsResults$!: Observable<google.maps.DirectionsResult | undefined>;
 
-  constructor(
-    private mapSvc: MapService,
-    private routeSvc: RouteService,
-    http: HttpClient,
-    mapDirectionsService: MapDirectionsService
-  ) {
-    this.routeSvc.getKey().then((apiKey) => {
-      this.key = apiKey.key;
-      this.apiLoaded = http
-        .jsonp(this.mapSvc.generateGMapEndPoint(this.key), 'callback')
-        .pipe(
-          map(() => true),
-          catchError(() => of(false))
-        );
-    });
+  constructor(private mapSvc: MapService, private routeSvc: RouteService) {
+    this.directionsResults$ = this.routeSvc.getDirections();
   }
 
   ngOnInit(): void {

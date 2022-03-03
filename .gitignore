@@ -8,7 +8,6 @@ target/
 src/main/resources/static
 
 # Sensitive
-src/main/resources/frontend/angular/src/app/config/constants.ts
 src/main/java/tfip/strava/util/Constants.java
 
 ### STS ###

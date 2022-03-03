@@ -6,10 +6,6 @@ import { Constants } from '../config/constants';
 export class MapService {
   constructor(private constants: Constants, private http: HttpClient) {}
 
-  getAPI_GMap(): string {
-    return this.constants.API_GMAP_ENDPOINT.concat(this.constants.KEY_GMAP);
-  }
-
   generateGMapEndPoint(key: string) {
     return this.constants.API_GMAP_ENDPOINT.concat(key);
   }
