@@ -1,9 +1,8 @@
 import { map } from 'rxjs/operators';
 import { MapDirectionsService } from '@angular/google-maps';
-import { Key } from './../models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Constants } from '../config/constants';
 
 @Injectable()
@@ -24,16 +23,5 @@ export class RouteService {
       .route(request)
       .pipe(map((response) => response.result));
     return directions;
-  }
-
-  // getDirections2(): Observable<google.maps.DirectionsResult | undefined> {
-  //   const result = this.http.get<google.maps.DirectionsResult>()
-  // }
-
-  async getKey(): Promise<Key> {
-    const apiKey = lastValueFrom(
-      this.http.get<Key>(this.constants.API_ROUTE_ENDPOINT.concat('/key'))
-    );
-    return apiKey;
   }
 }

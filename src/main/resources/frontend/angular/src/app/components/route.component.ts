@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class RouteComponent implements OnInit {
   //Variables for loading the map
   mapOptions!: google.maps.MapOptions;
-  directionOptions !: google.maps.DirectionsRendererOptions;
+  directionOptions!: google.maps.DirectionsRendererOptions;
 
   //Variables for handling the map
   display!: google.maps.LatLngLiteral;
