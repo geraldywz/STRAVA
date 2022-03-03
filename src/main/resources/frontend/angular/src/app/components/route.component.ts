@@ -11,7 +11,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class RouteComponent implements OnInit {
   //Variables for loading the map
-  options!: google.maps.MapOptions;
+  mapOptions!: google.maps.MapOptions;
+  directionOptions !: google.maps.DirectionsRendererOptions;
 
   //Variables for handling the map
   display!: google.maps.LatLngLiteral;
@@ -24,7 +25,8 @@ export class RouteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.options = this.mapSvc.getMapOptions();
+    this.mapOptions = this.mapSvc.getMapOptions();
+    this.directionOptions = this.mapSvc.getDirectionOptions();
   }
 
   move(event: google.maps.MapMouseEvent) {

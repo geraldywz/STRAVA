@@ -6,10 +6,6 @@ import { Constants } from '../config/constants';
 export class MapService {
   constructor(private constants: Constants, private http: HttpClient) {}
 
-  generateGMapEndPoint(key: string) {
-    return this.constants.API_GMAP_ENDPOINT.concat(key);
-  }
-
   private getBoundaries(): google.maps.LatLngBoundsLiteral {
     return {
       north: this.constants.LAT_SG + this.constants.LAT_INC,
@@ -17,6 +13,13 @@ export class MapService {
       east: this.constants.LNG_SG + this.constants.LNG_INC,
       west: this.constants.LNG_SG - this.constants.LNG_INC,
     };
+  }
+
+  getDirectionOptions(): google.maps.DirectionsRendererOptions {
+    const options: google.maps.DirectionsRendererOptions = {
+      draggable: true,
+    };
+    return options;
   }
 
   getMapOptions(): google.maps.MapOptions {
@@ -30,33 +33,6 @@ export class MapService {
         strictBounds: false,
       },
     };
-  }
-
-  getRoute(): google.maps.LatLngLiteral[] {
-    // This is a placeholder depiciting what directions would look like when they are rendered on the map.
-    let square: google.maps.LatLngLiteral[] = [
-      {
-        lat: this.constants.LAT_SG + 0.0125,
-        lng: this.constants.LNG_SG + 0.0125,
-      },
-      {
-        lat: this.constants.LAT_SG - 0.0125,
-        lng: this.constants.LNG_SG + 0.0125,
-      },
-      {
-        lat: this.constants.LAT_SG - 0.0125,
-        lng: this.constants.LNG_SG - 0.0125,
-      },
-      {
-        lat: this.constants.LAT_SG + 0.0125,
-        lng: this.constants.LNG_SG - 0.0125,
-      },
-      {
-        lat: this.constants.LAT_SG + 0.0125,
-        lng: this.constants.LNG_SG + 0.0125,
-      },
-    ];
-    return square;
   }
 
   private getSingaporeCoords(): google.maps.LatLngLiteral {

@@ -1,9 +1,10 @@
 <H1>Map Test</H1>
 <div>
-  <google-map height="700px" width="100%" [options]="options">
+  <google-map height="700px" width="100%" [options]="mapOptions">
     <map-directions-renderer
       *ngIf="directionsResults$ | async as directionsResults"
       [directions]="directionsResults"
+      [options]="directionOptions"
     ></map-directions-renderer>
   </google-map>
 </div>
