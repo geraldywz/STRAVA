@@ -17,12 +17,19 @@ public class GMapApiService {
 
     private final Logger logger = LoggerFactory.getLogger(GMapApiService.class);
 
-    public String getDirections() {
+    public String getDirections(String origin, String destination) {
+        return getDirections(origin, destination, null);
+    }
 
-        final String url = generateURI("Hougang Mall", "25 Heng Mui Keng Terrace");
+    public String getDirections(String origin, String destination, String[] waypoints) {
+        final String url = generateURI(origin, destination, waypoints);
         logger.info("GMap API URL >>>>> " + url);
 
-        String directions = null;
+        return getResponse(url);
+    }
+
+    private String getResponse(String url) {
+        String json = null;
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(url)
@@ -30,18 +37,32 @@ public class GMapApiService {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            directions = response.body().string();
+            json = response.body().string();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return directions;
+        return json;
     }
 
-    private String generateURI(String origin, String destination) {
-        return UriComponentsBuilder
+    private String generateURI(String origin, String destination, String[] waypoints) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder
                 .fromUriString(URL_GMAPS_DIRECTIONS_ENDPOINT)
                 .queryParam("origin", origin)
-                .queryParam("destination", destination)
+                .queryParam("destination", destination);
+
+        if (waypoints != null && waypoints.length > 0) {
+            String pipe = "|";
+            String wp = "";
+            for (int i = 0; i < waypoints.length; i++) {
+                wp = wp.concat(waypoints[i]);
+                if (waypoints.length > 1 && i != waypoints.length - 1) {
+                    wp = wp.concat(pipe);
+                }
+            }
+            uriBuilder = uriBuilder.queryParam("waypoints", wp);
+        }
+
+        return uriBuilder
                 .queryParam("avoid", PARAM_AVOID)
                 .queryParam("mode", PARAM_MODE)
                 .queryParam("key", KEY_GMAP_DIRECTIONS)
@@ -49,6 +70,6 @@ public class GMapApiService {
     }
 
     private String genLatLng(String lat, String lng) {
-        return lat + "," + lng;
+        return (lat + "," + lng).trim().replace(" ", "");
     }
 }

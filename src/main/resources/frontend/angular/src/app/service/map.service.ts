@@ -1,12 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from '../config/constants';
 
 @Injectable()
 export class MapService {
-  constructor(private constants: Constants) {}
+  constructor(private constants: Constants, private http: HttpClient) {}
 
   getAPI_GMap(): string {
     return this.constants.API_GMAP_ENDPOINT.concat(this.constants.KEY_GMAP);
+  }
+
+  generateGMapEndPoint(key: string) {
+    return this.constants.API_GMAP_ENDPOINT.concat(key);
   }
 
   private getBoundaries(): google.maps.LatLngBoundsLiteral {
