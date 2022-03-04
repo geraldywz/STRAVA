@@ -10,7 +10,7 @@
       *ngIf="directionsResults$ | async as directionsResults"
       [directions]="directionsResults"
       [options]="directionOptions"
-      (directionsChanged)="newDirections()"
+      (directionsChanged)="directionsChanged()"
     ></map-directions-renderer>
   </google-map>
 </div>
