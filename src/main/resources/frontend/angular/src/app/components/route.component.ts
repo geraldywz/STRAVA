@@ -36,7 +36,7 @@ export class RouteComponent implements OnInit {
     this.display = event.latLng!.toJSON(); // Use of non-null assertion operator '!' to suppress the strict null check.
   }
 
-  newDirections() {
+  directionsChanged() {
     this.routeLength = this.directionsRenderer.getDirections()?.routes[0].legs[0].distance?.value;
   }
 }
