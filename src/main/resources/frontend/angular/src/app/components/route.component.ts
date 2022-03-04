@@ -1,4 +1,4 @@
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
 import { RouteService } from './../service/route.service';
 import { MapService } from './../service/map.service';
@@ -17,7 +17,10 @@ export class RouteComponent implements OnInit {
   //Variables for handling the map
   display!: google.maps.LatLngLiteral;
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
-  route!: google.maps.LatLngLiteral[];
+  @ViewChild(MapDirectionsRenderer, { static: false })
+  directionsRenderer!: MapDirectionsRenderer;
+  routeLength: number |undefined;
+
   directionsResults$!: Observable<google.maps.DirectionsResult | undefined>;
 
   constructor(private mapSvc: MapService, private routeSvc: RouteService) {
@@ -33,7 +36,7 @@ export class RouteComponent implements OnInit {
     this.display = event.latLng!.toJSON(); // Use of non-null assertion operator '!' to suppress the strict null check.
   }
 
-  addMarker(event: google.maps.MapMouseEvent) {
-    this.route.push(event.latLng!.toJSON());
+  newDirections() {
+    this.routeLength = this.directionsRenderer.getDirections()?.routes[0].legs[0].distance?.value;
   }
 }

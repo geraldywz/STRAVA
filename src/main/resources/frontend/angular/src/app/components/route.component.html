@@ -1,10 +1,19 @@
 <H1>Map Test</H1>
 <div>
-  <google-map height="700px" width="100%" [options]="mapOptions">
+  <google-map
+    height="700px"
+    width="100%"
+    [options]="mapOptions"
+    (mapMousemove)="move($event)"
+  >
     <map-directions-renderer
       *ngIf="directionsResults$ | async as directionsResults"
       [directions]="directionsResults"
       [options]="directionOptions"
+      (directionsChanged)="newDirections()"
     ></map-directions-renderer>
   </google-map>
 </div>
+<h2>Lat: {{ display.lat }}</h2>
+<h2>Lat: {{ display.lng }}</h2>
+<h2>Route Length: {{ routeLength }}</h2>
