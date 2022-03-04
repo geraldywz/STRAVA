@@ -1,6 +1,6 @@
 import { GoogleMap, MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
-import { RouteService } from './../service/route.service';
+import { RouteService } from '../service/route.service';
 import { MapService } from '../service/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -23,6 +23,7 @@ export class RouteComponent implements OnInit {
   //Variables for displaying information about the map.
   display: google.maps.LatLngLiteral = this.mapSvc.getSingapore();
   routeLength: number | undefined = 0;
+  waypoints: number | undefined = 0;
 
   constructor(private mapSvc: MapService, private routeSvc: RouteService) {
     this.directionsResults$ = this.routeSvc.getDirections();
@@ -37,7 +38,9 @@ export class RouteComponent implements OnInit {
     this.display = event.latLng!.toJSON(); // Use of non-null assertion operator '!' to suppress the strict null check.
   }
 
-  directionsChanged() {
+  refreshRoute() {
+    this.waypoints =
+      this.directionsRenderer.getDirections()?.geocoded_waypoints?.length;
     this.routeLength =
       this.directionsRenderer.getDirections()?.routes[0].legs[0].distance?.value;
   }
