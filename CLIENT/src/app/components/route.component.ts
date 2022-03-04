@@ -22,16 +22,16 @@ export class RouteComponent implements OnInit {
 
   //Variables for displaying information about the map.
   display: google.maps.LatLngLiteral = this.mapSvc.getSingapore();
-  routeLength: number | undefined = 0;
-  waypoints: number | undefined = 0;
+  waypoints: number = 0;
+  distance!: string;
+  travelTime: number = 0;
 
-  constructor(private mapSvc: MapService, private routeSvc: RouteService) {
-    this.directionsResults$ = this.routeSvc.getDirections();
-  }
+  constructor(private mapSvc: MapService, private routeSvc: RouteService) {}
 
   ngOnInit(): void {
     this.mapOptions = this.mapSvc.getMapOptions();
     this.directionOptions = this.mapSvc.getDirectionOptions();
+    this.directionsResults$ = this.routeSvc.getDirections();
   }
 
   move(event: google.maps.MapMouseEvent) {
@@ -39,9 +39,10 @@ export class RouteComponent implements OnInit {
   }
 
   refreshRoute() {
-    this.waypoints =
-      this.directionsRenderer.getDirections()?.geocoded_waypoints?.length;
-    this.routeLength =
-      this.directionsRenderer.getDirections()?.routes[0].legs[0].distance?.value;
+    const render = this.directionsRenderer.getDirections();
+    this.waypoints = this.routeSvc.getNumWaypoints(render);
+    this.distance = this.routeSvc.getDistance(render);
+    if (render?.geocoded_waypoints) {
+    }
   }
 }

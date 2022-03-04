@@ -24,4 +24,23 @@ export class RouteService {
       .pipe(map((response) => response.result));
     return directions;
   }
+
+  getNumWaypoints(result: google.maps.DirectionsResult | null): number {
+    if (result === null || result?.geocoded_waypoints?.length === undefined) {
+      return 0;
+    } else {
+      return result?.geocoded_waypoints?.length;
+    }
+  }
+
+  getDistance(result: google.maps.DirectionsResult | null): string {
+    if (
+      result === null ||
+      result?.routes[0].legs[0].distance?.value === undefined
+    ) {
+      return '0';
+    } else {
+      return (result?.routes[0].legs[0].distance?.value / 1000).toPrecision(4);
+    }
+  }
 }
