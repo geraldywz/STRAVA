@@ -69,7 +69,7 @@ public class GMapApiService {
                 .toUriString();
     }
 
-    private String genLatLng(String lat, String lng) {
+    public String genLatLng(String lat, String lng) {
         return (lat + "," + lng).trim().replace(" ", "");
     }
 }

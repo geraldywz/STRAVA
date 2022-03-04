@@ -27,9 +27,9 @@ public class RouteRestController {
     @GetMapping()
     public ResponseEntity<String> getDirections() {
 
+        logger.info("RETREIVING DIRECTIONS");
         String directions = gmapApi.getDirections("Hougang Mall", "25 Heng Mui Keng Terrace",
                 new String[] { "Bishan Park", "Singapore Botanic Gardens" });
-
         return ResponseEntity
                 .ok()
                 .body(directions);
