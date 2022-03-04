@@ -5,6 +5,7 @@
     width="100%"
     [options]="mapOptions"
     (mapMousemove)="move($event)"
+    (tilesloaded)="directionsChanged()"
   >
     <map-directions-renderer
       *ngIf="directionsResults$ | async as directionsResults"
@@ -15,5 +16,5 @@
   </google-map>
 </div>
 <h2>Lat: {{ display.lat }}</h2>
-<h2>Lat: {{ display.lng }}</h2>
-<h2>Route Length: {{ routeLength }}</h2>
+<h2>Lng: {{ display.lng }}</h2>
+<h2>Route Length: {{ routeLength }}m</h2>

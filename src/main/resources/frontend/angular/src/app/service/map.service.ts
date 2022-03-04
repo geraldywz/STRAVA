@@ -24,7 +24,7 @@ export class MapService {
 
   getMapOptions(): google.maps.MapOptions {
     return {
-      center: this.getSingaporeCoords(),
+      center: this.getSingapore(),
       zoom: 12,
       minZoom: 12,
       zoomControl: true,
@@ -35,7 +35,7 @@ export class MapService {
     };
   }
 
-  private getSingaporeCoords(): google.maps.LatLngLiteral {
+  getSingapore(): google.maps.LatLngLiteral {
     return { lat: this.constants.LAT_SG, lng: this.constants.LNG_SG };
   }
 }
