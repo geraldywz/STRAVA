@@ -1,14 +1,15 @@
-import { RouteService } from './service/route.service';
-import { Constants } from './config/constants';
-import { MapService } from './service/map.service';
-import { NgModule } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouteComponent } from './components/route.component';
+import { RouteService } from './service/route.service';
+import { MapService } from './service/map.service';
+import { Constants } from './config/constants';
 
 @NgModule({
   declarations: [AppComponent, RouteComponent],
@@ -18,6 +19,7 @@ import { RouteComponent } from './components/route.component';
     GoogleMapsModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    BrowserAnimationsModule,
   ],
   providers: [MapService, RouteService, Constants],
   bootstrap: [AppComponent],
