@@ -7,7 +7,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-route',
   templateUrl: './route.component.html',
-  styleUrls: ['./route.component.css'],
 })
 export class RouteComponent implements OnInit {
   //Variables for loading the map.

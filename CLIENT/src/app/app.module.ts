@@ -6,6 +6,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MaterialModule } from './material.module';
+
 import { RouteComponent } from './components/route.component';
 import { RouteService } from './service/route.service';
 import { MapService } from './service/map.service';
@@ -20,6 +22,7 @@ import { Constants } from './config/constants';
     HttpClientModule,
     HttpClientJsonpModule,
     BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [MapService, RouteService, Constants],
   bootstrap: [AppComponent],
