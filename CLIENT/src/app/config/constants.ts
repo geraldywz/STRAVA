@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
+  public readonly API_USER_ENDPOINT = '/api/user';
   public readonly API_ROUTE_ENDPOINT = '/api/route';
   public readonly API_MAP_ENDPOINT = '/api/map';
 

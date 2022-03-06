@@ -1,0 +1,8 @@
+<div class="list-group" *ngIf="userList.length > 0">
+  <div *ngFor="let user of userList" class="item">
+    <a [routerLink]="['/user', user.name]"> {{ user.name }}</a>
+  </div>
+</div>
+<div class="list-group" *ngIf="userList.length === 0">
+  <h2>Add User</h2>
+</div>
