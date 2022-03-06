@@ -23,17 +23,16 @@ public class UserService {
         boolean success = false;
         success = userRepo.findByName(newUser.getName()).isEmpty();
         if (success) {
-            userRepo.save(newUser);
+            userRepo.addUser(newUser);
         }
         return success;
     }
 
     public Optional<List<User>> getAllUsers() {
         Optional<List<User>> result = Optional.empty();
-        List<User> users = userRepo.findAll();
+        List<User> users = userRepo.getAllUsers();
         if (users.size() != 0) {
             result = Optional.of(users);
-
         }
         logger.info("USERS FOUND >>>>> " + users.size());
         return result;

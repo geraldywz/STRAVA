@@ -2,10 +2,10 @@ DROP schema IF EXISTS strava;
 CREATE DATABASE strava;
 USE strava;
 CREATE TABLE users(
-    user_id INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(32) NOT NULL,
-    email VARCHAR(64) NOT NULL,
-    PRIMARY KEY(user_id)
+    email VARCHAR(128) NOT NULL,
+    PRIMARY KEY(id)
 );
 CREATE TABLE routes(
     route_id INT NOT NULL AUTO_INCREMENT,
@@ -14,7 +14,7 @@ CREATE TABLE routes(
     distance DECIMAL(7, 2) NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY(route_id),
-    FOREIGN KEY(user_id) REFERENCES users(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 CREATE TABLE workouts(
     workout_id INT NOT NULL AUTO_INCREMENT,
@@ -25,5 +25,5 @@ CREATE TABLE workouts(
     weather_last_updated DATETIME NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY(workout_id),
-    FOREIGN KEY(user_id) REFERENCES users(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
