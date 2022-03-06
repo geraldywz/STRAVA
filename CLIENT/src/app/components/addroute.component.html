@@ -16,10 +16,8 @@
 </div>
 <div class="div">
   <label for="name">Name: </label>
-  <input id="name" type="text" formControlName="name" />
+  <input id="name" type="text" [formControl]="name" />
 </div>
 <h2>Waypoints: {{ this.waypoints.length }}</h2>
 <h2>Distance: {{ this.distance }}km</h2>
-<button type="button" [disabled]="!form.valid" (click)="addRoute()">
-  Add Route
-</button>
+<button type="button" (click)="addRoute()">Add Route</button>

@@ -1,17 +1,17 @@
 import { Route } from './../models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapDirectionsRenderer } from '@angular/google-maps';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../service/map.service';
 import { RouteService } from '../service/route.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-addroute',
   templateUrl: './addroute.component.html',
 })
-export class AddrouteComponent implements OnInit, OnDestroy {
+export class AddrouteComponent implements OnInit {
   id!: string;
 
   //Variables for loading the map.
@@ -29,14 +29,11 @@ export class AddrouteComponent implements OnInit, OnDestroy {
   travelTime: number = 0;
 
   //Form variables
-  form!: FormGroup;
-  sub$!: Subscription;
-  valid = new BehaviorSubject<boolean>(false);
+  name = new FormControl('');
 
   constructor(
     private mapSvc: MapService,
     private routeSvc: RouteService,
-    private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -48,29 +45,6 @@ export class AddrouteComponent implements OnInit, OnDestroy {
     this.mapOptions = this.mapSvc.getMapOptions();
     this.directionOptions = this.mapSvc.getDirectionOptions();
     this.directionsResults$ = this.routeSvc.getDirections();
-  }
-
-  ngOnDestroy() {
-    this.sub$.unsubscribe();
-  }
-
-  //Form methods
-
-  resetForm(r: Partial<Route> = {}) {
-    this.sub$?.unsubscribe();
-
-    this.form = this.formBuilder.group({
-      name: this.formBuilder.control(r.name || '', [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
-    });
-
-    this.sub$ = this.form.statusChanges.subscribe((v) => {
-      let validity = v.toLowerCase() == 'valid' && this.waypoints.length >= 2;
-      console.info('FORM >>>>> ', validity);
-      this.valid.next(validity);
-    });
   }
 
   //Map methods
@@ -98,7 +72,7 @@ export class AddrouteComponent implements OnInit, OnDestroy {
   getValue(): Route {
     return {
       id: 0,
-      name: this.form.get('name')?.value,
+      name: this.name.value,
       waypoints: this.waypoints,
       distance: this.distance,
       user_id: Number(this.id),
@@ -106,7 +80,6 @@ export class AddrouteComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.resetForm();
     this.router.navigate(['user', this.id]);
   }
 }
