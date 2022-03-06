@@ -14,6 +14,7 @@ import { RouteService } from './service/route.service';
 import { MapService } from './service/map.service';
 import { Constants } from './config/constants';
 import { AdduserComponent } from './components/adduser.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, RouteComponent, HomeComponent, AdduserComponent],
@@ -25,6 +26,7 @@ import { AdduserComponent } from './components/adduser.component';
     HttpClientJsonpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NgbModule,
   ],
   providers: [UserService, MapService, RouteService, Constants],
   bootstrap: [AppComponent],
