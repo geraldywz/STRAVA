@@ -7,8 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from './material.module';
-
 import { RouteComponent } from './components/route.component';
 import { HomeComponent } from './components/home.component';
 import { UserService } from './service/user.service';
@@ -27,7 +25,6 @@ import { AdduserComponent } from './components/adduser.component';
     HttpClientJsonpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MaterialModule,
   ],
   providers: [UserService, MapService, RouteService, Constants],
   bootstrap: [AppComponent],
