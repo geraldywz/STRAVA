@@ -6,6 +6,7 @@ public class Constants {
 
     public static final String API_ROUTE_ENDPOINT = "/api/route";
     public static final String API_MAP_ENDPOINT = "/api/map";
+    public static final String API_USER_ENDPOINT = "/api/user";
 
     // GMAPS Specific
     public static final String URL_GMAPS_DIRECTIONS_ENDPOINT = "https://maps.googleapis.com/maps/api/directions/json?";
