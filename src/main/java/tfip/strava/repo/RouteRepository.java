@@ -24,6 +24,29 @@ public class RouteRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(RouteRepository.class);
 
+    public boolean addRoute(Route route) {
+        final int routeAdded = template.update(
+                SQL_ADD_ROUTE,
+                route.getName(),
+                ListToStringConverter.toString(route.getWaypoints()),
+                route.getDistance(),
+                route.getUser_id());
+        logger.info("DB ADDING ROUTE(" + route.getName() + ") >>>>> " + (routeAdded > 0));
+        return routeAdded > 0;
+    }
+
+    public Optional<Route> getRoute(int routeId) {
+        Optional<Route> route = Optional.empty();
+        final SqlRowSet rs = template.queryForRowSet(
+                SQL_GET_ROUTES_BY_ROUTE_ID,
+                routeId);
+        if (rs.next()) {
+            route = Optional.of(Route.populate(rs));
+        }
+        logger.info("DB FETCHING ROUTE >>>>> id: " + routeId);
+        return route;
+    }
+
     public List<Route> getRoutes(int userId) {
         final List<Route> routes = new LinkedList<>();
         final SqlRowSet rs = template.queryForRowSet(
@@ -34,17 +57,6 @@ public class RouteRepository {
         }
         logger.info("DB FETCHING ROUTES >>>>> user_id: " + userId);
         return routes;
-    }
-
-    public boolean addRoute(Route route) {
-        final int routeAdded = template.update(
-                SQL_ADD_ROUTE,
-                route.getName(),
-                ListToStringConverter.toString(route.getWaypoints()),
-                route.getDistance(),
-                route.getUser_id());
-        logger.info("DB ADDING ROUTE(" + route.getName() + ") >>>>> " + (routeAdded > 0));
-        return routeAdded > 0;
     }
 
 }

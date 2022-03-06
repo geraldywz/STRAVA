@@ -36,28 +36,21 @@ public class RouteRestController {
     @Autowired
     private RouteService routeSvc;
 
-    @GetMapping(path = "/uid/{userId}")
-    public ResponseEntity<String> getRoutesByUserID(@PathVariable String userId) {
-        Optional<List<Route>> routes = routeSvc.getRoutes(Integer.valueOf(userId));
-        if (routes.isEmpty()) {
-            logger.info("ROUTES >>>>> NOT FOUND.");
+    @GetMapping(path = "/{route_id}")
+    public ResponseEntity<String> getRoutesByRouteID(@PathVariable String route_id) {
+        Optional<Route> route = routeSvc.getRoute(Integer.valueOf(route_id));
+        if (route.isEmpty()) {
+            logger.info("ROUTE(" + route_id + ") >>>>> NOT FOUND.");
             return ResponseEntity
                     .notFound()
                     .build();
         } else {
-            logger.info("ROUTES >>>>> RETRIEVED.");
+            logger.info("ROUTE(" + route_id + ") >>>>> RETRIEVED.");
             return ResponseEntity
                     .ok()
-                    .body(new Gson().toJson(routes.get()));
+                    .body(new Gson().toJson(route.get()));
         }
     }
-
-    // @GetMapping()
-    // public ResponseEntity<String> getRouteByRouteId(String route_id) {
-    //     return ResponseEntity
-    //             .ok()
-    //             .build();
-    // }
 
     @GetMapping()
     public ResponseEntity<String> getRouteByUserId(@RequestParam String user_id) {

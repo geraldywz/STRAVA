@@ -14,6 +14,9 @@ public class Route {
     private double distance;
     private int user_id;
 
+    public Route() {
+    }
+
     public Route(int id, String name, List<String> waypoints, double distance, int user_id) {
         this.id = id;
         this.name = name;

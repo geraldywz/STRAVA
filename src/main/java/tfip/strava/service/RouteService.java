@@ -19,6 +19,14 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepo;
 
+    public boolean addRoute(Route newRoute) {
+        return routeRepo.addRoute(newRoute);
+    }
+
+    public Optional<Route> getRoute(int routeId) {
+        return routeRepo.getRoute(routeId);
+    }
+
     public Optional<List<Route>> getRoutes(int userId) {
         Optional<List<Route>> result = Optional.empty();
         List<Route> users = routeRepo.getRoutes(userId);
@@ -29,7 +37,4 @@ public class RouteService {
         return result;
     }
 
-    public boolean addRoute(Route newRoute) {
-        return routeRepo.addRoute(newRoute);
-    }
 }
