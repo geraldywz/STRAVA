@@ -9,7 +9,7 @@ CREATE TABLE users(
 );
 CREATE TABLE routes(
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(32) NOT NULL,
+    name VARCHAR(64) NOT NULL,
     waypoints VARCHAR(256) NOT NULL,
     distance DECIMAL(7, 2) NOT NULL,
     user_id INT NOT NULL,

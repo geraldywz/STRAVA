@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../service/map.service';
 import { RouteService } from '../service/route.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-addroute',
@@ -29,7 +29,11 @@ export class AddrouteComponent implements OnInit {
   travelTime: number = 0;
 
   //Form variables
-  name = new FormControl('');
+  name = new FormControl('', [
+    Validators.required,
+    Validators.minLength(4),
+    Validators.maxLength(64),
+  ]);
 
   constructor(
     private mapSvc: MapService,
@@ -58,15 +62,19 @@ export class AddrouteComponent implements OnInit {
 
   addRoute() {
     const r = this.getValue();
-    console.log('Submitting >>>>> ' + r.name);
-    this.routeSvc
-      .addRoute(r)
-      .then(() => {
-        this.back();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (r.name.length > 0) {
+      console.log('Submitting >>>>> ' + r.name);
+      this.routeSvc
+        .addRoute(r)
+        .then(() => {
+          this.back();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert('Name must be at least 4 characters long.');
+    }
   }
 
   getValue(): Route {
