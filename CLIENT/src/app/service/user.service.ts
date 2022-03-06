@@ -14,4 +14,10 @@ export class UserService {
     );
     return userList;
   }
+
+  async addUser(user: Partial<User>) {
+    return await lastValueFrom(
+      this.http.post<any>(this.constants.API_USER_ENDPOINT, user)
+    );
+  }
 }

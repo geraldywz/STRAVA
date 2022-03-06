@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <div class="div">
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name" />
+  </div>
+  <div>
+    <label for="email">Email: </label>
+    <input id="email" type="email" formControlName="email" />
+  </div>
+  <button type="button" [disabled]="!form.valid" (click)="addUser()">
+    Add User
+  </button>
+</form>

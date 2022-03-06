@@ -1,8 +1,9 @@
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -14,9 +15,10 @@ import { UserService } from './service/user.service';
 import { RouteService } from './service/route.service';
 import { MapService } from './service/map.service';
 import { Constants } from './config/constants';
+import { AdduserComponent } from './components/adduser.component';
 
 @NgModule({
-  declarations: [AppComponent, RouteComponent, HomeComponent],
+  declarations: [AppComponent, RouteComponent, HomeComponent, AdduserComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +26,7 @@ import { Constants } from './config/constants';
     HttpClientModule,
     HttpClientJsonpModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ],
   providers: [UserService, MapService, RouteService, Constants],
