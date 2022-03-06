@@ -22,7 +22,7 @@ import tfip.strava.model.User;
 import tfip.strava.service.UserService;
 
 @RestController
-@RequestMapping(path = API_USER_ENDPOINT)
+@RequestMapping(path = API_USER_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
@@ -47,7 +47,7 @@ public class UserRestController {
         }
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping()
     public ResponseEntity<String> getAllUsers() {
         Optional<List<User>> users = userSvc.getAllUsers();
         if (users.isEmpty()) {

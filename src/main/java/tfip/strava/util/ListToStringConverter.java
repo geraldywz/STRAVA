@@ -6,11 +6,11 @@ import java.util.List;
 
 public class ListToStringConverter {
 
-    public String convertToDatabaseColumn(List<String> attribute) {
+    public static String toString(List<String> attribute) {
         return attribute == null ? null : String.join(",", attribute);
     }
 
-    public List<String> convertToEntityAttribute(String dbData) {
+    public static List<String> toList(String dbData) {
         return dbData == null ? Collections.emptyList() : Arrays.asList(dbData.split(","));
     }
 }

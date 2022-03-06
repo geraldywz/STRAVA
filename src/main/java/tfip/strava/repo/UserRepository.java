@@ -37,7 +37,7 @@ public class UserRepository {
     public Optional<User> findByName(String name) {
         Optional<User> result = Optional.empty();
         final SqlRowSet rs = template.queryForRowSet(
-                SQL_FIND_USER_BY_NAME, name);
+                SQL_GET_USER_BY_NAME, name);
         if (rs.next()) {
             result = Optional.of(User.populate(rs));
         }
