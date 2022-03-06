@@ -51,12 +51,14 @@ export class AddrouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.sub$.unsubscribe();
+    this.sub$.unsubscribe();
   }
 
   //Form methods
 
   resetForm(r: Partial<Route> = {}) {
+    this.sub$?.unsubscribe();
+
     this.form = this.formBuilder.group({
       name: this.formBuilder.control(r.name || '', [
         Validators.required,

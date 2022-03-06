@@ -33,6 +33,8 @@ export class AdduserComponent implements OnInit, OnDestroy {
   }
 
   resetForm(u: Partial<User> = {}) {
+    this.sub$?.unsubscribe();
+
     this.form = this.formBuilder.group({
       name: this.formBuilder.control(u.name || '', [
         Validators.required,
