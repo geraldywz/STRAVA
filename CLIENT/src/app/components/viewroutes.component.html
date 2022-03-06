@@ -1,0 +1,8 @@
+<div class="list-group" *ngIf="routeList.length > 0">
+  <div *ngFor="let route of routeList" class="item">
+    <a [routerLink]="['/route', route.id]"> {{ route.name }}</a>
+  </div>
+</div>
+<div>
+  <a [routerLink]="['/newroute', id]"> Add route</a>
+</div>

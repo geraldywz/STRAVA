@@ -1,0 +1,25 @@
+<H1>Route</H1>
+<div>
+  <google-map
+    height="400px"
+    width="100%"
+    [options]="mapOptions"
+    (tilesloaded)="refreshRoute()"
+  >
+    <map-directions-renderer
+      *ngIf="directionsResults$ | async as directionsResults"
+      [directions]="directionsResults"
+      [options]="directionOptions"
+      (directionsChanged)="refreshRoute()"
+    ></map-directions-renderer>
+  </google-map>
+</div>
+<div class="div">
+  <label for="name">Name: </label>
+  <input id="name" type="text" formControlName="name" />
+</div>
+<h2>Waypoints: {{ this.waypoints.length }}</h2>
+<h2>Distance: {{ this.distance }}km</h2>
+<button type="button" [disabled]="!form.valid" (click)="addRoute()">
+  Add Route
+</button>

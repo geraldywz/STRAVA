@@ -2,8 +2,9 @@ import { map } from 'rxjs/operators';
 import { MapDirectionsService } from '@angular/google-maps';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Constants } from '../config/constants';
+import { Route } from '../models';
 
 @Injectable()
 export class RouteService {
@@ -12,6 +13,21 @@ export class RouteService {
     private http: HttpClient,
     private mapDirectionsService: MapDirectionsService
   ) {}
+
+  async addRoute(route: Partial<Route>) {
+    return await lastValueFrom(
+      this.http.post<any>(this.constants.API_ROUTE_ENDPOINT, route)
+    );
+  }
+
+  async getRouteByUserID(userId: string): Promise<Route[]> {
+    const routeList = lastValueFrom(
+      this.http.get<Route[]>(
+        this.constants.API_ROUTE_ENDPOINT.concat('/uid/' + userId)
+      )
+    );
+    return routeList;
+  }
 
   getDirections(): Observable<google.maps.DirectionsResult | undefined> {
     const request: google.maps.DirectionsRequest = {
@@ -33,6 +49,17 @@ export class RouteService {
     }
   }
 
+  getWaypoints(result: google.maps.DirectionsResult | null): string[] {
+    let waypoints: string[] = [];
+    if (result != null && result?.geocoded_waypoints?.length != undefined) {
+      for (let i = 0; i < result?.geocoded_waypoints?.length; i++) {
+        let placeId: any = result?.geocoded_waypoints[i].place_id;
+        waypoints.push(placeId);
+      }
+    }
+    return waypoints;
+  }
+
   getDistance(result: google.maps.DirectionsResult | null): string {
     if (
       result === null ||
@@ -40,7 +67,7 @@ export class RouteService {
     ) {
       return '0';
     } else {
-      return (result?.routes[0].legs[0].distance?.value / 1000).toPrecision(4);
+      return (result?.routes[0].legs[0].distance?.value / 1000).toFixed(2);
     }
   }
 }

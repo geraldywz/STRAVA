@@ -20,7 +20,6 @@ export class AdduserComponent implements OnInit, OnDestroy {
     private userSvc: UserService,
     private router: Router
   ) {}
-  user!: User;
   form!: FormGroup;
   sub$!: Subscription;
   valid = new BehaviorSubject<boolean>(false);
