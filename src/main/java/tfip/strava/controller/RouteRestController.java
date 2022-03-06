@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static tfip.strava.util.Constants.*;
@@ -38,6 +39,29 @@ public class RouteRestController {
     @GetMapping(path = "/uid/{userId}")
     public ResponseEntity<String> getRoutesByUserID(@PathVariable String userId) {
         Optional<List<Route>> routes = routeSvc.getRoutes(Integer.valueOf(userId));
+        if (routes.isEmpty()) {
+            logger.info("ROUTES >>>>> NOT FOUND.");
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        } else {
+            logger.info("ROUTES >>>>> RETRIEVED.");
+            return ResponseEntity
+                    .ok()
+                    .body(new Gson().toJson(routes.get()));
+        }
+    }
+
+    // @GetMapping()
+    // public ResponseEntity<String> getRouteByRouteId(String route_id) {
+    //     return ResponseEntity
+    //             .ok()
+    //             .build();
+    // }
+
+    @GetMapping()
+    public ResponseEntity<String> getRouteByUserId(@RequestParam String user_id) {
+        Optional<List<Route>> routes = routeSvc.getRoutes(Integer.valueOf(user_id));
         if (routes.isEmpty()) {
             logger.info("ROUTES >>>>> NOT FOUND.");
             return ResponseEntity

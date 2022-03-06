@@ -23,7 +23,7 @@ export class RouteService {
   async getRouteByUserID(userId: string): Promise<Route[]> {
     const routeList = lastValueFrom(
       this.http.get<Route[]>(
-        this.constants.API_ROUTE_ENDPOINT.concat('/uid/' + userId)
+        this.constants.API_ROUTE_ENDPOINT.concat('?user_id=' + userId)
       )
     );
     return routeList;
@@ -39,14 +39,6 @@ export class RouteService {
       .route(request)
       .pipe(map((response) => response.result));
     return directions;
-  }
-
-  getNumWaypoints(result: google.maps.DirectionsResult | null): number {
-    if (result === null || result?.geocoded_waypoints?.length === undefined) {
-      return 0;
-    } else {
-      return result?.geocoded_waypoints?.length;
-    }
   }
 
   getWaypoints(result: google.maps.DirectionsResult | null): string[] {

@@ -39,7 +39,7 @@ export class RouteComponent implements OnInit {
 
   refreshRoute() {
     const render = this.directionsRenderer.getDirections();
-    this.waypoints = this.routeSvc.getNumWaypoints(render);
+    // this.waypoints = this.routeSvc.getNumWaypoints(render);
     this.distance = this.routeSvc.getDistance(render);
     if (render?.geocoded_waypoints) {
     }
