@@ -45,7 +45,6 @@ public class UserRestController {
                     .badRequest()
                     .build();
         }
-
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,5 +62,4 @@ public class UserRestController {
                     .body(new Gson().toJson(users.get()));
         }
     }
-
 }
