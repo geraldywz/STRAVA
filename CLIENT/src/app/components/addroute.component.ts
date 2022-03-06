@@ -51,7 +51,7 @@ export class AddrouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub$.unsubscribe();
+    // this.sub$.unsubscribe();
   }
 
   //Form methods
@@ -65,7 +65,7 @@ export class AddrouteComponent implements OnInit, OnDestroy {
     });
 
     this.sub$ = this.form.statusChanges.subscribe((v) => {
-      let validity = (v.toLowerCase() == 'valid' && this.waypoints.length >= 2);
+      let validity = v.toLowerCase() == 'valid' && this.waypoints.length >= 2;
       console.info('FORM >>>>> ', validity);
       this.valid.next(validity);
     });
@@ -105,6 +105,6 @@ export class AddrouteComponent implements OnInit, OnDestroy {
 
   back() {
     this.resetForm();
-    this.router.navigate(['/']);
+    this.router.navigate(['user', this.id]);
   }
 }
