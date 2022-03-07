@@ -3,12 +3,7 @@ package tfip.strava.model;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Weather {
-
-    private static final Logger logger = LoggerFactory.getLogger(Weather.class);
 
     private String description;
     private double temp;
