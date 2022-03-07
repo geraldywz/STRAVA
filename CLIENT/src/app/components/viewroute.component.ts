@@ -7,10 +7,10 @@ import { MapService } from '../service/map.service';
 import { RouteService } from '../service/route.service';
 
 @Component({
-  selector: 'app-editroute',
-  templateUrl: './editroute.component.html',
+  selector: 'app-viewroute',
+  templateUrl: './viewroute.component.html',
 })
-export class EditrouteComponent implements OnInit {
+export class ViewrouteComponent implements OnInit {
   id!: string;
 
   //Variables for loading the map.
