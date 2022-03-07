@@ -13,31 +13,29 @@ import tfip.strava.model.Weather;
 
 import static tfip.strava.util.Constants.*;
 
-import java.util.Objects;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Service
 public class WeatherApiService {
 
     private final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
 
-    private final String appId;
-
-    public WeatherApiService() {
-        // appId = System.getenv(ENV_OPENWEATHERMAP_KEY);
-        appId = "a785a8a212098474da9f29d61abc06cf";
-        logger.info("OWM API KEY >>>>> " + appId);
-        if (Objects.isNull(appId) || appId.length() == 0) {
-            logger.warn("OWM Key is not set".formatted(ENV_OPENWEATHERMAP_KEY));
-        }
-    }
-
-    public Optional<Weather> getWeather() {
-        Optional<Weather> weather = Optional.empty();
+    public Optional<List<Weather>> getWeather() {
+        Optional<List<Weather>> weather = Optional.empty();
         final String url = generateURI();
         logger.info("OWM API URL >>>>> " + url);
         try {
-            weather = Optional.of(Weather.toWeather(
+            weather = Optional.of(process(
                     getResponse(url)));
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,11 +61,69 @@ public class WeatherApiService {
 
     private String generateURI() {
         return UriComponentsBuilder
-                .fromUriString(URL_OPENWEATHERMAP_ENDPOINT)
-                .queryParam("q", "Singapore")
-                .queryParam("units", "metric")
-                .queryParam("appid", appId)
+                .fromUriString(URL_NEA_2HR_ENDPOINT)
                 .toUriString();
+    }
+
+    private List<Weather> process(String json) {
+        List<Weather> weatherMap = new LinkedList<>();
+        JsonObject neaWeather = JsonParser
+                .parseString(json)
+                .getAsJsonObject();
+
+        JsonArray metadata = neaWeather.get("area_metadata").getAsJsonArray();
+        for (JsonElement jsonElement : metadata) {
+            JsonObject w = jsonElement.getAsJsonObject();
+            weatherMap.add(
+                    new Weather(
+                            w.get("name")
+                                    .getAsString(),
+                            w.get("label_location")
+                                    .getAsJsonObject()
+                                    .get("latitude")
+                                    .getAsDouble(),
+                            w.get("label_location")
+                                    .getAsJsonObject()
+                                    .get("longitude")
+                                    .getAsDouble()));
+        }
+
+        Timestamp now = new Timestamp(
+                new java.util.Date()
+                        .getTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+
+        JsonArray items = neaWeather.get("items").getAsJsonArray();
+        for (JsonElement jsonElement : items) {
+            JsonObject v = jsonElement
+                    .getAsJsonObject()
+                    .get("valid_period")
+                    .getAsJsonObject();
+            ZonedDateTime start = ZonedDateTime.parse(
+                    v.get("start").getAsString(),
+                    formatter);
+            ZonedDateTime end = ZonedDateTime.parse(
+                    v.get("end").getAsString(),
+                    formatter);
+            if (start.toLocalDateTime().isBefore(now.toLocalDateTime()) &&
+                    end.toLocalDateTime().isAfter(now.toLocalDateTime())) {
+                JsonArray x = jsonElement
+                        .getAsJsonObject()
+                        .get("forecasts")
+                        .getAsJsonArray();
+                for (int i = 0; i < x.size(); i++) {
+                    String forecast = x.get(i)
+                            .getAsJsonObject()
+                            .get("forecast")
+                            .getAsString();
+                    weatherMap
+                            .get(i)
+                            .setForecast(forecast);
+                }
+                break;
+            }
+        }
+        return weatherMap;
     }
 
 }

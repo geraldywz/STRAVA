@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static tfip.strava.util.Constants.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ public class WeatherRestController {
 
     @GetMapping()
     public ResponseEntity<String> getAllUsers() {
-        Optional<Weather> weather = weatherSvc.getWeather();
+        Optional<List<Weather>> weather = weatherSvc.getWeather();
         if (weather.isEmpty()) {
             logger.info("FORECAST >>>>> NOT AVAILABLE.");
             return ResponseEntity

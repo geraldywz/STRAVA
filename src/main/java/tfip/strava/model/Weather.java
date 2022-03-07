@@ -1,54 +1,51 @@
 package tfip.strava.model;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 public class Weather {
 
-    private String description;
-    private double temp;
+    private String name;
+    private String forecast;
+    private double lat;
+    private double lng;
 
     public Weather() {
     }
 
-    public Weather(String description, double temp) {
-        this.description = description;
-        this.temp = temp;
+    public Weather(String name, double lat, double lng) {
+        this.name = name;
+        this.lat = lat;
+        this.lng = lng;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getName() {
+        return this.name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getTemp() {
-        return this.temp;
+    public String getForecast() {
+        return this.forecast;
     }
 
-    public void setTemp(double temp) {
-        this.temp = temp;
+    public void setForecast(String forecast) {
+        this.forecast = forecast;
     }
 
-    public static Weather toWeather(String json) {
-        JsonObject openWeather = JsonParser
-                .parseString(json)
-                .getAsJsonObject();
-        return new Weather(
-                openWeather
-                        .get("weather")
-                        .getAsJsonArray()
-                        .get(0)
-                        .getAsJsonObject()
-                        .get("description")
-                        .getAsString(),
-
-                openWeather
-                        .get("main")
-                        .getAsJsonObject()
-                        .get("temp")
-                        .getAsDouble());
+    public double getLat() {
+        return this.lat;
     }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return this.lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
 }
