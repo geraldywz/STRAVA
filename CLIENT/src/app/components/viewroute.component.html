@@ -1,19 +1,35 @@
-<H1>Route: {{ route.name }}</H1>
-<div>
-  <google-map
-    height="576px"
-    width="100%"
-    [options]="mapOptions"
-    (tilesloaded)="refreshRoute()"
-  >
-    <map-directions-renderer
-      *ngIf="directionsResults$ | async as directionsResults"
-      [directions]="directionsResults"
-      [options]="directionOptions"
-      (directionsChanged)="refreshRoute()"
-    ></map-directions-renderer>
-  </google-map>
+<div class="container-fluid">
+  <div>
+    <google-map
+      height="576px"
+      width="100%"
+      [options]="mapOptions"
+      (tilesloaded)="refreshRoute()"
+    >
+      <map-directions-renderer
+        *ngIf="directionsResults$ | async as directionsResults"
+        [directions]="directionsResults"
+        [options]="directionOptions"
+        (directionsChanged)="refreshRoute()"
+      ></map-directions-renderer>
+    </google-map>
+  </div>
+
+  <div class="mx-auto" style="width: 600px">
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action"
+        >Route: {{ route.name }}</a
+      >
+      <a href="#" class="list-group-item list-group-item-action"
+        >Waypoints: {{ this.waypoints.length }}</a
+      >
+      <a href="#" class="list-group-item list-group-item-action"
+        >Distance: {{ this.distance }}km</a
+      >
+    </div>
+
+    <button type="button" class="btn btn-success" (click)="createWorkout()">
+      Create Workout
+    </button>
+  </div>
 </div>
-<h2>Waypoints: {{ this.waypoints.length }}</h2>
-<h2>Distance: {{ this.distance }}km</h2>
-<button type="button" (click)="createWorkout()">Create Workout</button>

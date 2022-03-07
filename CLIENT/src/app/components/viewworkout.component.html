@@ -1,25 +1,38 @@
-<H1>Workout: {{ presentDateTime(workout.start) }}</H1>
-<div>
-  <google-map
-    height="576px"
-    width="100%"
-    [options]="mapOptions"
-    (tilesloaded)="refreshRoute()"
-  >
-    <map-directions-renderer
-      *ngIf="directionsResults$ | async as directionsResults"
-      [directions]="directionsResults"
-      [options]="directionOptions"
-      (directionsChanged)="refreshRoute()"
-    ></map-directions-renderer>
-    <map-marker
-      *ngFor="let marker of markerArray"
-      [position]="marker.coords"
-      [label]="marker.forecast"
-      [title]="marker.name"
-      [options]="markerOptions"
-    ></map-marker>
-  </google-map>
+<div class="container-fluid">
+  <div>
+    <google-map
+      height="576px"
+      width="100%"
+      [options]="mapOptions"
+      (tilesloaded)="refreshRoute()"
+    >
+      <map-directions-renderer
+        *ngIf="directionsResults$ | async as directionsResults"
+        [directions]="directionsResults"
+        [options]="directionOptions"
+        (directionsChanged)="refreshRoute()"
+      ></map-directions-renderer>
+      <map-marker
+        *ngFor="let marker of markerArray"
+        [position]="marker.coords"
+        [label]="marker.forecast"
+        [title]="marker.name"
+        [options]="markerOptions"
+      ></map-marker>
+    </google-map>
+  </div>
+
+  <div class="mx-auto" style="width: 600px">
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action"
+        >Workout: {{ presentDateTime(workout.start) }}</a
+      >
+      <a href="#" class="list-group-item list-group-item-action"
+        >Waypoints: {{ this.waypoints.length }}</a
+      >
+      <a href="#" class="list-group-item list-group-item-action"
+        >Distance: {{ this.distance }}km</a
+      >
+    </div>
+  </div>
 </div>
-<h2>Waypoints: {{ this.waypoints.length }}</h2>
-<h2>Distance: {{ this.distance }}km</h2>
