@@ -1,3 +1,4 @@
+import { EditrouteComponent } from './components/editroute.component';
 import { ViewroutesComponent } from './components/viewroutes.component';
 import { RouteComponent } from './components/route.component';
 import { NgModule } from '@angular/core';
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'user/add', component: AdduserComponent },
   { path: 'user/:id', component: ViewroutesComponent },
-  { path: 'newroute/:id', component: AddrouteComponent },
+  { path: 'route/:id', component: EditrouteComponent },
+  { path: 'route/new/:id', component: AddrouteComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 

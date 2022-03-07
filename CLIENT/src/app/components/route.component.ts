@@ -30,7 +30,7 @@ export class RouteComponent implements OnInit {
   ngOnInit(): void {
     this.mapOptions = this.mapSvc.getMapOptions();
     this.directionOptions = this.mapSvc.getDirectionOptions();
-    this.directionsResults$ = this.routeSvc.getDirections();
+    this.directionsResults$ = this.routeSvc.getDefaultDirections();
   }
 
   move(event: google.maps.MapMouseEvent) {

@@ -18,9 +18,10 @@ import { Constants } from './config/constants';
 import { AdduserComponent } from './components/adduser.component';
 import { ViewroutesComponent } from './components/viewroutes.component';
 import { AddrouteComponent } from './components/addroute.component';
+import { EditrouteComponent } from './components/editroute.component';
 
 @NgModule({
-  declarations: [AppComponent, RouteComponent, HomeComponent, AdduserComponent, ViewroutesComponent, AddrouteComponent],
+  declarations: [AppComponent, RouteComponent, HomeComponent, AdduserComponent, ViewroutesComponent, AddrouteComponent, EditrouteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

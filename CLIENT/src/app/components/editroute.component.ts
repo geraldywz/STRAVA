@@ -8,10 +8,10 @@ import { RouteService } from '../service/route.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-addroute',
-  templateUrl: './addroute.component.html',
+  selector: 'app-editroute',
+  templateUrl: './editroute.component.html',
 })
-export class AddrouteComponent implements OnInit {
+export class EditrouteComponent implements OnInit {
   id!: string;
 
   //Variables for loading the map.

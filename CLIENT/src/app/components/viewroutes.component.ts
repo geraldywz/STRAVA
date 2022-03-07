@@ -19,7 +19,7 @@ export class ViewroutesComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.routeSvc
-      .getRouteByUserID(this.id)
+      .getRoutesByUserID(this.id)
       .then((rl) => (this.routeList = rl))
       .catch((error) => {
         console.log(error);
