@@ -1,5 +1,5 @@
 <div class="list-group" *ngIf="workoutList.length > 0">
   <div *ngFor="let workout of workoutList" class="item">
-    <a [routerLink]="['/workout', workout.id]"> {{ convert(workout.start) }}</a>
+    <a [routerLink]="['/workout/view', workout.id]"> {{ presentDateTime(workout.start) }}</a>
   </div>
 </div>

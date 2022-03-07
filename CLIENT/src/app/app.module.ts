@@ -10,18 +10,19 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AdduserComponent } from './components/adduser.component';
-import { ViewroutesComponent } from './components/viewroutes.component';
 import { AddrouteComponent } from './components/addroute.component';
 import { ViewrouteComponent } from './components/viewroute.component';
+import { ViewroutesComponent } from './components/viewroutes.component';
 import { ViewworkoutComponent } from './components/viewworkout.component';
+import { ViewworkoutsComponent } from './components/viewworkouts.component';
 import { RouteComponent } from './components/route.component';
 import { HomeComponent } from './components/home.component';
 import { UserService } from './service/user.service';
 import { RouteService } from './service/route.service';
 import { MapService } from './service/map.service';
 import { WeatherService } from './service/weather.service';
+import { WorkoutService } from './service/workout.service';
 import { Constants } from './config/constants';
-import { ViewworkoutsComponent } from './components/viewworkouts.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,14 @@ import { ViewworkoutsComponent } from './components/viewworkouts.component';
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [UserService, MapService, RouteService, WeatherService, Constants],
+  providers: [
+    UserService,
+    MapService,
+    RouteService,
+    WeatherService,
+    WorkoutService,
+    Constants,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

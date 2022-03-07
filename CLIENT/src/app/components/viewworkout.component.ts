@@ -1,4 +1,5 @@
-import { Marker, Route, Weather } from '../models';
+import { WorkoutService } from '../service/workout.service';
+import { Marker, Workout } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
@@ -26,7 +27,7 @@ export class ViewworkoutComponent implements OnInit {
   directionsRenderer!: MapDirectionsRenderer;
 
   //Variables for displaying information about the map.
-  route!: Route;
+  workout!: Workout;
   waypoints: string[] = [];
   distance: number = 0;
 
@@ -34,6 +35,7 @@ export class ViewworkoutComponent implements OnInit {
     private mapSvc: MapService,
     private routeSvc: RouteService,
     private weatherSvc: WeatherService,
+    private workoutSvc: WorkoutService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -41,12 +43,12 @@ export class ViewworkoutComponent implements OnInit {
   //Lifecycle methods
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.routeSvc
-      .getRouteByRouteID(this.id)
-      .then((r) => {
-        this.route = r;
+    this.workoutSvc
+      .getWorkoutByWorkoutID(this.id)
+      .then((w) => {
+        this.workout = w;
         this.directionsResults$ = this.routeSvc.getDirections(
-          this.route.waypoints
+          this.workout.waypoints
         );
       })
       .then(() => {
@@ -80,30 +82,12 @@ export class ViewworkoutComponent implements OnInit {
     this.distance = Number(this.routeSvc.getDistance(render));
   }
 
-  //Utility methods
-  editRoute() {
-    this.route = this.getValue();
-    this.routeSvc
-      .addRoute(this.route)
-      .then(() => {
-        this.back();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  getValue(): Route {
-    return {
-      id: this.route.id,
-      name: this.route.name,
-      waypoints: this.waypoints,
-      distance: this.distance,
-      user_id: this.route.user_id,
-    };
-  }
-
   back() {
     this.router.navigate(['user', this.id]);
+  }
+
+  presentDateTime(dateTime: number): string {
+    var date = new Date(dateTime);
+    return date.toLocaleString('en-GB');
   }
 }

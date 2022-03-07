@@ -26,7 +26,7 @@ export class ViewworkoutsComponent implements OnInit {
       });
   }
 
-  convert(dateTime: number): string {
+  presentDateTime(dateTime: number): string {
     var date = new Date(dateTime);
     return date.toLocaleString('en-GB');
   }
