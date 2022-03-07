@@ -5,7 +5,6 @@ target/
 !**/src/test/**/target/
 
 # Compiled output
-src/main/resources/static
 
 ### STS ###
 .apt_generated
