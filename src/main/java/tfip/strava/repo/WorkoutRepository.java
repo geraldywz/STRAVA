@@ -1,6 +1,6 @@
 package tfip.strava.repo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +30,7 @@ public class WorkoutRepository {
                 SQL_ADD_WORKOUT,
                 ListToStringConverter.toString(workout.getWaypoints()),
                 workout.getDistance(),
-                new Date(workout.getStart()),
+                new Timestamp(workout.getStart()),
                 workout.getUser_id());
         logger.info("DB ADDING WORKOUT(" + workout.getId() + ") >>>>> " + (workoutAdded > 0));
         return workoutAdded > 0;

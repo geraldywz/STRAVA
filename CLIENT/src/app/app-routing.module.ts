@@ -1,3 +1,5 @@
+import { ViewworkoutsComponent } from './components/viewworkouts.component';
+import { ViewworkoutComponent } from './components/viewworkout.component';
 import { ViewroutesComponent } from './components/viewroutes.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +13,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'user/add', component: AdduserComponent },
   { path: 'user/:id', component: ViewroutesComponent },
+  { path: 'workout/:id', component: ViewworkoutsComponent },
   { path: 'workout/new/:id', component: AddworkoutComponent },
   { path: 'route/:id', component: ViewrouteComponent },
   { path: 'route/new/:id', component: AddrouteComponent },

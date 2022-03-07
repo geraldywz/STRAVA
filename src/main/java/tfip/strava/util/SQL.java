@@ -15,8 +15,8 @@ public class SQL {
 
     public static final String SQL_GET_ROUTES_BY_USER_ID = "SELECT * FROM routes WHERE user_id = ?";
 
-    public static final String SQL_GET_WORKOUTS_BY_WORKOUT_ID = "SELECT * FROM workout WHERE id = ?";
+    public static final String SQL_GET_WORKOUTS_BY_WORKOUT_ID = "SELECT * FROM workouts WHERE id = ?";
 
-    public static final String SQL_GET_WORKOUTS_BY_USER_ID = "SELECT * FROM workout WHERE user_id = ?";
+    public static final String SQL_GET_WORKOUTS_BY_USER_ID = "SELECT * FROM workouts WHERE user_id = ?";
 
 }

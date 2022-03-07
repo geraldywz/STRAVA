@@ -14,6 +14,9 @@ public class Workout {
     private double distance;
     private int user_id;
 
+    public Workout() {
+    }
+
     public Workout(int id, Long start, List<String> waypoints, double distance, int user_id) {
         this.id = id;
         this.start = start;
@@ -26,7 +29,7 @@ public class Workout {
         return this.id;
     }
 
-    public void setId(int id) { 
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -63,11 +66,12 @@ public class Workout {
     }
 
     public static Workout populate(SqlRowSet rs) {
-        return new Workout(
-                rs.getInt("id"),
-                rs.getDate("start").getTime(),
-                ListToStringConverter.toList(rs.getString("waypoints")),
-                rs.getDouble("distance"),
-                rs.getInt("user_id"));
+        Workout w = new Workout();
+        w.setId(rs.getInt("id"));
+        w.setStart(rs.getTimestamp("start").getTime());
+        w.setWaypoints(ListToStringConverter.toList(rs.getString("waypoints")));
+        w.setDistance(rs.getDouble("distance"));
+        w.setUser_id(rs.getInt("user_id"));
+        return w;
     }
 }

@@ -14,6 +14,7 @@ import { ViewroutesComponent } from './components/viewroutes.component';
 import { AddrouteComponent } from './components/addroute.component';
 import { AddworkoutComponent } from './components/addworkout.component';
 import { ViewrouteComponent } from './components/viewroute.component';
+import { ViewworkoutComponent } from './components/viewworkout.component';
 import { RouteComponent } from './components/route.component';
 import { HomeComponent } from './components/home.component';
 import { UserService } from './service/user.service';
@@ -21,6 +22,7 @@ import { RouteService } from './service/route.service';
 import { MapService } from './service/map.service';
 import { WeatherService } from './service/weather.service';
 import { Constants } from './config/constants';
+import { ViewworkoutsComponent } from './components/viewworkouts.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { Constants } from './config/constants';
     AddrouteComponent,
     AddworkoutComponent,
     ViewrouteComponent,
+    ViewworkoutComponent,
+    ViewworkoutsComponent,
   ],
   imports: [
     BrowserModule,

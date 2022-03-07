@@ -1,10 +1,6 @@
 import { Marker, Route, Weather } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  MapDirectionsRenderer,
-  MapMarker,
-  GoogleMap,
-} from '@angular/google-maps';
+import { MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../service/map.service';

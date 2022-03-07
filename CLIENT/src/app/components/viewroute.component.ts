@@ -1,10 +1,11 @@
-import { Route } from '../models';
+import { Route, Workout } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../service/map.service';
 import { RouteService } from '../service/route.service';
+import { WorkoutService } from '../service/workout.service';
 
 @Component({
   selector: 'app-viewroute',
@@ -24,12 +25,14 @@ export class ViewrouteComponent implements OnInit {
 
   //Variables for displaying information about the map.
   route!: Route;
+  workout!: Workout;
   waypoints: string[] = [];
   distance: number = 0;
 
   constructor(
     private mapSvc: MapService,
     private routeSvc: RouteService,
+    private workoutSvc: WorkoutService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -60,10 +63,10 @@ export class ViewrouteComponent implements OnInit {
   }
 
   //Utility methods
-  editRoute() {
-    this.route = this.getValue();
-    this.routeSvc
-      .addRoute(this.route)
+  createWorkout() {
+    this.workout = this.getValue();
+    this.workoutSvc
+      .addWorkout(this.workout)
       .then(() => {
         this.back();
       })
@@ -72,10 +75,10 @@ export class ViewrouteComponent implements OnInit {
       });
   }
 
-  getValue(): Route {
+  getValue(): Workout {
     return {
-      id: this.route.id,
-      name: this.route.name,
+      id: 0,
+      start: Date.now(),
       waypoints: this.waypoints,
       distance: this.distance,
       user_id: this.route.user_id,
@@ -83,6 +86,6 @@ export class ViewrouteComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['user', this.id]);
+    this.router.navigate(['workout', this.route.user_id]);
   }
 }

@@ -20,7 +20,7 @@ CREATE TABLE workouts(
     id INT NOT NULL AUTO_INCREMENT,
     waypoints VARCHAR(256) NOT NULL,
     distance DECIMAL(7, 2) NOT NULL,
-    start DATETIME NOT NULL,
+    start TIMESTAMP NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id)

@@ -1,3 +1,5 @@
+import { LocationChangeEvent } from '@angular/common';
+
 export interface User {
   id: number;
   name: string;
@@ -7,6 +9,14 @@ export interface User {
 export interface Route {
   id: number;
   name: string;
+  waypoints: string[];
+  distance: number;
+  user_id: number;
+}
+
+export interface Workout {
+  id: number;
+  start: number;
   waypoints: string[];
   distance: number;
   user_id: number;
