@@ -8,7 +8,7 @@ target/
 src/main/resources/static
 
 # Sensitive
-src/main/java/tfip/strava/util/Constants.java
+src/main/java/tfip/strava/service/GMapApiService.java
 
 ### STS ###
 .apt_generated
