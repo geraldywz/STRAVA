@@ -12,4 +12,5 @@ export class Constants {
   public readonly LNG_SG: number = 103.8198; // lng coords for SG
   public readonly LAT_INC: number = 0.15;
   public readonly LNG_INC: number = 0.25;
+
 }
