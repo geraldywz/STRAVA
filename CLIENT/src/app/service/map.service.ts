@@ -40,7 +40,7 @@ export class MapService {
       opacity: 0.75,
       draggable: false,
       icon: {
-        url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
       },
     };
   }
