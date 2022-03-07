@@ -1,0 +1,21 @@
+<H1>Route</H1>
+<div>
+  <google-map
+    height="576px"
+    width="100%"
+    [options]="mapOptions"
+    (mapMousemove)="move($event)"
+    (tilesloaded)="refreshRoute()"
+  >
+    <map-directions-renderer
+      *ngIf="directionsResults$ | async as directionsResults"
+      [directions]="directionsResults"
+      [options]="directionOptions"
+      (directionsChanged)="refreshRoute()"
+    ></map-directions-renderer>
+  </google-map>
+</div>
+<h2>Lat: {{ display.lat }}</h2>
+<h2>Lng: {{ display.lng }}</h2>
+<h2>Waypoints: {{ waypoints }}</h2>
+<h2>Distance: {{ distance }}km</h2>
