@@ -42,8 +42,8 @@ export class RouteService {
 
   getDefaultDirections(): Observable<google.maps.DirectionsResult | undefined> {
     const request = this.generateDirectionRequest([
-      'Hougang Mall',
-      '25 Heng Mui Keng Terrace',
+      'ChIJdfHdmFUa2jER2o1gow9qbIQ',
+      'ChIJTzOjnDcW2jERHyoyj5LFmQ4',
     ]);
     const directions = this.mapDirectionsService
       .route(request)
@@ -57,8 +57,8 @@ export class RouteService {
     let start: any = waypoints.shift();
     let end: any = waypoints.pop();
     let result: google.maps.DirectionsRequest = {
-      origin: start,
-      destination: end,
+      origin: this.generatePlace(start),
+      destination: this.generatePlace(end),
       travelMode: google.maps.TravelMode.BICYCLING,
       avoidHighways: true,
     };
@@ -68,14 +68,27 @@ export class RouteService {
     return result;
   }
 
+  private generatePlace(location: string): google.maps.Place {
+    return { placeId: location };
+  }
+
   private generateDirectionsWaypoint(
     waypoints: string[]
   ): google.maps.DirectionsWaypoint[] {
     let result: google.maps.DirectionsWaypoint[] = [];
     waypoints.forEach((waypoint) => {
-      result.push({ location: waypoint, stopover: false });
+      result.push({ location: this.generatePlace(waypoint), stopover: false });
     });
     return result;
+  }
+
+  async getRouteByRouteID(routeId: string): Promise<Route> {
+    const route = lastValueFrom(
+      this.http.get<Route>(
+        this.constants.API_ROUTE_ENDPOINT.concat('/' + routeId)
+      )
+    );
+    return route;
   }
 
   async getRoutesByUserID(userId: string): Promise<Route[]> {

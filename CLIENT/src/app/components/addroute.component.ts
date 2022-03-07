@@ -26,7 +26,6 @@ export class AddrouteComponent implements OnInit {
   //Variables for displaying information about the map.
   waypoints: string[] = [];
   distance: number = 0;
-  travelTime: number = 0;
 
   //Form variables
   name = new FormControl('', [

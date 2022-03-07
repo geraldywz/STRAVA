@@ -23,7 +23,6 @@ export class RouteComponent implements OnInit {
   display: google.maps.LatLngLiteral = this.mapSvc.getSingapore();
   waypoints: number = 0;
   distance!: string;
-  travelTime: number = 0;
 
   constructor(private mapSvc: MapService, private routeSvc: RouteService) {}
 

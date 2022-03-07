@@ -1,11 +1,10 @@
-import { Route } from './../models';
+import { Route } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapDirectionsRenderer } from '@angular/google-maps';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../service/map.service';
 import { RouteService } from '../service/route.service';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-editroute',
@@ -24,16 +23,9 @@ export class EditrouteComponent implements OnInit {
   directionsRenderer!: MapDirectionsRenderer;
 
   //Variables for displaying information about the map.
+  route!: Route;
   waypoints: string[] = [];
   distance: number = 0;
-  travelTime: number = 0;
-
-  //Form variables
-  name = new FormControl('', [
-    Validators.required,
-    Validators.minLength(4),
-    Validators.maxLength(64),
-  ]);
 
   constructor(
     private mapSvc: MapService,
@@ -43,12 +35,21 @@ export class EditrouteComponent implements OnInit {
   ) {}
 
   //Lifecycle methods
-
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.routeSvc
+      .getRouteByRouteID(this.id)
+      .then((r) => {
+        this.route = r;
+        this.directionsResults$ = this.routeSvc.getDirections(
+          this.route.waypoints
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     this.mapOptions = this.mapSvc.getMapOptions();
     this.directionOptions = this.mapSvc.getDirectionOptions();
-    this.directionsResults$ = this.routeSvc.getDefaultDirections();
   }
 
   //Map methods
@@ -59,31 +60,25 @@ export class EditrouteComponent implements OnInit {
   }
 
   //Utility methods
-
-  addRoute() {
-    const r = this.getValue();
-    if (r.name.length > 0) {
-      console.log('Submitting >>>>> ' + r.name);
-      this.routeSvc
-        .addRoute(r)
-        .then(() => {
-          this.back();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      alert('Name must be at least 4 characters long.');
-    }
+  editRoute() {
+    this.route = this.getValue();
+    this.routeSvc
+      .addRoute(this.route)
+      .then(() => {
+        this.back();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getValue(): Route {
     return {
-      id: 0,
-      name: this.name.value,
+      id: this.route.id,
+      name: this.route.name,
       waypoints: this.waypoints,
       distance: this.distance,
-      user_id: Number(this.id),
+      user_id: this.route.user_id,
     };
   }
 
