@@ -28,10 +28,6 @@ export class AddworkoutComponent implements OnInit {
   //Variables for handling the map.
   @ViewChild(MapDirectionsRenderer, { static: false })
   directionsRenderer!: MapDirectionsRenderer;
-  @ViewChild(MapMarker, { static: false })
-  mapMarker!: MapMarker;
-  @ViewChild(GoogleMap, { static: false })
-  map!: GoogleMap;
 
   //Variables for displaying information about the map.
   route!: Route;
