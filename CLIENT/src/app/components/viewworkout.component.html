@@ -15,8 +15,8 @@
       <map-marker
         *ngFor="let marker of markerArray"
         [position]="marker.coords"
-        [label]="marker.name"
-        [title]="marker.forecast"
+        [label]="marker.forecast"
+        [title]="marker.name"
         [options]="markerOptions"
       ></map-marker>
     </google-map>
