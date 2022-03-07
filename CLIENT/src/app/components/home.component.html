@@ -1,8 +1,18 @@
-<div class="list-group" *ngIf="userList.length > 0">
-  <div *ngFor="let user of userList" class="item">
-    <a [routerLink]="['/user', user.id]"> {{ user.name }}</a>
+<div class="container-fluid">
+  <div class="mx-auto" style="width: 200px">
+    <div class="list-group" *ngIf="userList.length > 0">
+      <div class="list-group" *ngFor="let user of userList" class="item">
+        <a
+          [routerLink]="['/user', user.id]"
+          class="list-group-item list-group-item-action"
+          >{{ user.name }}</a
+        >
+      </div>
+    </div>
+    <a
+      [routerLink]="['/user/add']"
+      class="list-group-item list-group-item-action active"
+      >Add User</a
+    >
   </div>
-</div>
-<div>
-  <a [routerLink]="['/user/add']"> Add User</a>
 </div>
