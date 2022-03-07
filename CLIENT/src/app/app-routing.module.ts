@@ -1,6 +1,5 @@
 import { EditrouteComponent } from './components/editroute.component';
 import { ViewroutesComponent } from './components/viewroutes.component';
-import { RouteComponent } from './components/route.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home.component';
