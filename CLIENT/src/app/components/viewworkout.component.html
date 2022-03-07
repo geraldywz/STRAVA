@@ -1,1 +1,25 @@
-<p>viewworkout works!</p>
+<H1>Workout: {{ route.name }}</H1>
+<div>
+  <google-map
+    height="400px"
+    width="100%"
+    [options]="mapOptions"
+    (tilesloaded)="refreshRoute()"
+  >
+    <map-directions-renderer
+      *ngIf="directionsResults$ | async as directionsResults"
+      [directions]="directionsResults"
+      [options]="directionOptions"
+      (directionsChanged)="refreshRoute()"
+    ></map-directions-renderer>
+    <map-marker
+      *ngFor="let marker of markerArray"
+      [position]="marker.coords"
+      [label]="marker.forecast"
+      [title]="marker.name"
+      [options]="markerOptions"
+    ></map-marker>
+  </google-map>
+</div>
+<h2>Waypoints: {{ this.waypoints.length }}</h2>
+<h2>Distance: {{ this.distance }}km</h2>

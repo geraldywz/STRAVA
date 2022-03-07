@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './components/adduser.component';
 import { ViewroutesComponent } from './components/viewroutes.component';
 import { AddrouteComponent } from './components/addroute.component';
-import { AddworkoutComponent } from './components/addworkout.component';
 import { ViewrouteComponent } from './components/viewroute.component';
 import { ViewworkoutComponent } from './components/viewworkout.component';
 import { RouteComponent } from './components/route.component';
@@ -32,7 +31,6 @@ import { ViewworkoutsComponent } from './components/viewworkouts.component';
     AdduserComponent,
     ViewroutesComponent,
     AddrouteComponent,
-    AddworkoutComponent,
     ViewrouteComponent,
     ViewworkoutComponent,
     ViewworkoutsComponent,

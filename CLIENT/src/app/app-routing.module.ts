@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home.component';
 import { AdduserComponent } from './components/adduser.component';
 import { AddrouteComponent } from './components/addroute.component';
-import { AddworkoutComponent } from './components/addworkout.component';
+
 import { ViewrouteComponent } from './components/viewroute.component';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'user/add', component: AdduserComponent },
   { path: 'user/:id', component: ViewroutesComponent },
   { path: 'workout/:id', component: ViewworkoutsComponent },
-  { path: 'workout/new/:id', component: AddworkoutComponent },
+  { path: 'workout/view/:id', component: ViewworkoutComponent },
   { path: 'route/:id', component: ViewrouteComponent },
   { path: 'route/new/:id', component: AddrouteComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
