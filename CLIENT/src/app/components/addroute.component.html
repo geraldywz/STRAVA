@@ -1,35 +1,56 @@
-<H1>Add Route</H1>
-<div>
-  <google-map
-    height="400px"
-    width="100%"
-    [options]="mapOptions"
-    (tilesloaded)="refreshRoute()"
-  >
-    <map-directions-renderer
-      *ngIf="directionsResults$ | async as directionsResults"
-      [directions]="directionsResults"
-      [options]="directionOptions"
-      (directionsChanged)="refreshRoute()"
-    ></map-directions-renderer>
-  </google-map>
-</div>
-<div class="div">
-  <label for="name">Name: </label>
-  <input id="name" type="text" [formControl]="name" />
-</div>
-<h2>Waypoints: {{ this.waypoints.length }}</h2>
-<h2>Distance: {{ this.distance }}km</h2>
-<button type="button" (click)="addRoute()">Add Route</button>
-<div
-  *ngIf="name.invalid && (name.dirty || name.touched)"
-  class="alert alert-danger"
->
-  <div *ngIf="name.errors?.['required']">Name is required.</div>
-  <div *ngIf="name.errors?.['minlength']">
-    Name must be at least 4 characters long.
+<div class="container-fluid">
+  <div>
+    <google-map
+      height="576px"
+      width="100%"
+      [options]="mapOptions"
+      (tilesloaded)="refreshRoute()"
+    >
+      <map-directions-renderer
+        *ngIf="directionsResults$ | async as directionsResults"
+        [directions]="directionsResults"
+        [options]="directionOptions"
+        (directionsChanged)="refreshRoute()"
+      ></map-directions-renderer>
+    </google-map>
   </div>
-  <div *ngIf="name.errors?.['maxlength']">
-    Name cannot exceed 64 characters.
+
+  <div class="mx-auto" style="width: 600px">
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="name"
+        [formControl]="name"
+      />
+      <label for="name">Route Name</label>
+    </div>
+
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action"
+        >Waypoints: {{ this.waypoints.length }}</a
+      >
+      <a href="#" class="list-group-item list-group-item-action"
+        >Distance: {{ this.distance }}km</a
+      >
+    </div>
+
+    <button type="button" class="btn btn-success" (click)="addRoute()">
+      Add Route
+    </button>
+
+    <div
+      *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="name.errors?.['required']">Name is required.</div>
+      <div *ngIf="name.errors?.['minlength']">
+        Name must be at least 4 characters long.
+      </div>
+      <div *ngIf="name.errors?.['maxlength']">
+        Name cannot exceed 64 characters.
+      </div>
+    </div>
   </div>
 </div>
