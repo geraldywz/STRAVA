@@ -29,11 +29,11 @@ public class RouteService {
 
     public Optional<List<Route>> getRoutes(int userId) {
         Optional<List<Route>> result = Optional.empty();
-        List<Route> users = routeRepo.getRoutes(userId);
-        if (users.size() != 0) {
-            result = Optional.of(users);
+        List<Route> routes = routeRepo.getRoutes(userId);
+        if (routes.size() != 0) {
+            result = Optional.of(routes);
         }
-        logger.info("ROUTES FOUND >>>>> " + users.size());
+        logger.info("ROUTES FOUND >>>>> " + routes.size());
         return result;
     }
 
