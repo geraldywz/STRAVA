@@ -33,7 +33,7 @@ public class WeatherApiService {
     public Optional<List<Weather>> getWeather() {
         Optional<List<Weather>> weather = Optional.empty();
         final String url = generateURI();
-        logger.info("OWM API URL >>>>> " + url);
+        logger.info("NEA API URL >>>>> " + url);
         try {
             weather = Optional.of(process(
                     getResponse(url)));
