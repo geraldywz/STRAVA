@@ -46,7 +46,7 @@ public class WeatherApiService {
 
     private String generateURI(String origin, String destination, String[] waypoints) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder
-                .fromUriString(URL_GMAPS_DIRECTIONS_ENDPOINT)
+                .fromUriString("ipsumlorem.com")
                 .queryParam("origin", origin)
                 .queryParam("destination", destination);
 
@@ -62,11 +62,7 @@ public class WeatherApiService {
             uriBuilder = uriBuilder.queryParam("waypoints", wp);
         }
 
-        return uriBuilder
-                .queryParam("avoid", PARAM_AVOID)
-                .queryParam("mode", PARAM_MODE)
-                .queryParam("key", KEY_GMAP_DIRECTIONS)
-                .toUriString();
+        return uriBuilder.toUriString();
     }
 
     public String genLatLng(String lat, String lng) {

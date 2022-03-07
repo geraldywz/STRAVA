@@ -20,18 +20,13 @@ import java.util.Optional;
 
 import com.google.gson.Gson;
 
-import tfip.strava.model.Key;
 import tfip.strava.model.Route;
-import tfip.strava.service.GMapApiService;
 import tfip.strava.service.RouteService;
 
 @RestController
 @RequestMapping(path = API_ROUTE_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RouteRestController {
     private static final Logger logger = LoggerFactory.getLogger(RouteRestController.class);
-
-    @Autowired
-    private GMapApiService gmapApi;
 
     @Autowired
     private RouteService routeSvc;
@@ -85,22 +80,4 @@ public class RouteRestController {
         }
     }
 
-    @GetMapping(value = "/directions")
-    public ResponseEntity<String> getDirections() {
-
-        logger.info("RETREIVING DIRECTIONS");
-        String directions = gmapApi.getDirections("Hougang Mall", "25 Heng Mui Keng Terrace",
-                new String[] { "Bishan Park", "Singapore Botanic Gardens" });
-        return ResponseEntity
-                .ok()
-                .body(directions);
-    }
-
-    @GetMapping(value = "/key")
-    public ResponseEntity<String> getKey() {
-
-        return ResponseEntity
-                .ok()
-                .body(new Gson().toJson(new Key("Key", KEY_GMAP_DIRECTIONS)));
-    }
 }

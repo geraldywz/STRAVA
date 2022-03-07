@@ -7,9 +7,6 @@ target/
 # Compiled output
 src/main/resources/static
 
-# Sensitive
-src/main/java/tfip/strava/service/GMapApiService.java
-
 ### STS ###
 .apt_generated
 .classpath
@@ -37,4 +34,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
