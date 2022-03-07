@@ -8,11 +8,19 @@ export interface Route {
   id: number;
   name: string;
   waypoints: string[];
-  distance: number
+  distance: number;
   user_id: number;
 }
 
-export interface Key {
+export interface Weather {
   name: string;
-  key: string;
+  forecast: string;
+  lat: number;
+  lng: number;
+}
+
+export interface Marker {
+  name: string;
+  forecast: string;
+  coords: google.maps.LatLngLiteral;
 }

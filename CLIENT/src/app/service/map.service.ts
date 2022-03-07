@@ -35,6 +35,16 @@ export class MapService {
     };
   }
 
+  getMarkerOptions(): google.maps.MarkerOptions {
+    return {
+      opacity: 0.75,
+      draggable: false,
+      icon: {
+        url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      },
+    };
+  }
+
   getSingapore(): google.maps.LatLngLiteral {
     return { lat: this.constants.LAT_SG, lng: this.constants.LNG_SG };
   }
