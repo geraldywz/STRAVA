@@ -21,8 +21,6 @@ CREATE TABLE workouts(
     waypoints VARCHAR(256) NOT NULL,
     distance DECIMAL(7, 2) NOT NULL,
     start DATETIME NOT NULL,
-    weather VARCHAR(64) NOT NULL,
-    weather_last_updated DATETIME NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id)

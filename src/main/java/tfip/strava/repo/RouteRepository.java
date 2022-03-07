@@ -58,5 +58,4 @@ public class RouteRepository {
         logger.info("DB FETCHING ROUTES >>>>> user_id: " + userId);
         return routes;
     }
-
 }

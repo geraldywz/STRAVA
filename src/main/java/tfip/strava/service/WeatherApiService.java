@@ -9,23 +9,40 @@ import org.springframework.web.util.UriComponentsBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import tfip.strava.model.Weather;
 
 import static tfip.strava.util.Constants.*;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class WeatherApiService {
 
     private final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
 
-    public String getDirections(String origin, String destination) {
-        return getDirections(origin, destination, null);
+    private final String appId;
+
+    public WeatherApiService() {
+        // appId = System.getenv(ENV_OPENWEATHERMAP_KEY);
+        appId = "a785a8a212098474da9f29d61abc06cf";
+        logger.info("OWM API KEY >>>>> " + appId);
+        if (Objects.isNull(appId) || appId.length() == 0) {
+            logger.warn("OWM Key is not set".formatted(ENV_OPENWEATHERMAP_KEY));
+        }
     }
 
-    public String getDirections(String origin, String destination, String[] waypoints) {
-        final String url = generateURI(origin, destination, waypoints);
-        logger.info("GMap API URL >>>>> " + url);
-
-        return getResponse(url);
+    public Optional<Weather> getWeather() {
+        Optional<Weather> weather = Optional.empty();
+        final String url = generateURI();
+        logger.info("OWM API URL >>>>> " + url);
+        try {
+            weather = Optional.of(Weather.toWeather(
+                    getResponse(url)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return weather;
     }
 
     private String getResponse(String url) {
@@ -44,28 +61,13 @@ public class WeatherApiService {
         return json;
     }
 
-    private String generateURI(String origin, String destination, String[] waypoints) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder
-                .fromUriString("ipsumlorem.com")
-                .queryParam("origin", origin)
-                .queryParam("destination", destination);
-
-        if (waypoints != null && waypoints.length > 0) {
-            String pipe = "|";
-            String wp = "";
-            for (int i = 0; i < waypoints.length; i++) {
-                wp = wp.concat(waypoints[i]);
-                if (waypoints.length > 1 && i != waypoints.length - 1) {
-                    wp = wp.concat(pipe);
-                }
-            }
-            uriBuilder = uriBuilder.queryParam("waypoints", wp);
-        }
-
-        return uriBuilder.toUriString();
+    private String generateURI() {
+        return UriComponentsBuilder
+                .fromUriString(URL_OPENWEATHERMAP_ENDPOINT)
+                .queryParam("q", "Singapore")
+                .queryParam("units", "metric")
+                .queryParam("appid", appId)
+                .toUriString();
     }
 
-    public String genLatLng(String lat, String lng) {
-        return (lat + "," + lng).trim().replace(" ", "");
-    }
 }
