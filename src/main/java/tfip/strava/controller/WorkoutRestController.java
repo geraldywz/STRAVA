@@ -67,6 +67,7 @@ public class WorkoutRestController {
     public ResponseEntity<String> addWorkout(@RequestBody String newWorkout) {
         Workout workout = new Gson().fromJson(newWorkout, Workout.class);
         boolean success = workoutSvc.addWorkout(workout);
+        
         if (success) {
             logger.info("ADD WORKOUT >>>>> Success.");
             return ResponseEntity
