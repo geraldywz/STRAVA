@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   constructor(private userSvc: UserService, private router: Router) {}
 
   ngOnInit(): void {
+    console.log('PING');
+
     this.userSvc
       .getUsers()
       .then((ul) => (this.userList = ul))
