@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# Compiled output
+# Sensitive
+env.properties
 
 ### STS ###
 .apt_generated
